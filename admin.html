@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Admin Dashboard – View student availability, find the best day for class." />
+  <title>St Johns Monaragala – Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
+</head>
+<body>
+  <!-- Animated BG -->
+  <div class="bg-animated">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <div class="page-wrapper">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" alt="Logo" class="app-logo" />
+          <span data-lang-key="app_name">St Johns Monaragala</span>
+        </div>
+        <div class="nav-controls">
+          <div class="dropdown" id="profileDropdown">
+            <button class="icon-btn" id="headerProfileBtn" data-tooltip="Profile & Settings">👤</button>
+            <div class="dropdown-menu">
+              <div class="dropdown-item" onclick="document.querySelector('[data-tab=\'adminProfileTab\']').click(); document.getElementById('profileDropdown').classList.remove('show');">
+                <span class="dropdown-icon">🧑‍💼</span> <span data-lang-key="profile">Profile</span>
+              </div>
+              <div class="dropdown-item" onclick="document.querySelector('[data-tab=\'settingsTab\']').click(); document.getElementById('profileDropdown').classList.remove('show');">
+                <span class="dropdown-icon">⚙️</span> <span data-lang-key="settings">Settings</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+      <!-- Sidebar / Bottom Nav -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-menu">
+          <button class="menu-item active" data-tab="dashboardTab">
+            <span class="icon">🏠</span>
+            <span class="label" data-lang-key="overview">Overview</span>
+          </button>
+          <button class="menu-item" data-tab="weeklyTab">
+            <span class="icon">📅</span>
+            <span class="label" data-lang-key="weekly_view">Weekly View</span>
+          </button>
+          <button class="menu-item" data-tab="bestDayTab">
+            <span class="icon">🏆</span>
+            <span class="label" data-lang-key="best_day">Best Day</span>
+          </button>
+          <button class="menu-item" data-tab="yearlyTab">
+            <span class="icon">🗓️</span>
+            <span class="label" data-lang-key="yearly_view">Yearly View</span>
+          </button>
+          <button class="menu-item" data-tab="studentsTab">
+            <span class="icon">👥</span>
+            <span class="label" data-lang-key="students_list">Students</span>
+          </button>
+          <!-- Hidden triggers for dropdown tabs -->
+          <button class="menu-item" data-tab="adminProfileTab" style="display:none;"></button>
+          <button class="menu-item" data-tab="settingsTab" style="display:none;"></button>
+        </div>
+      </aside>
+
+      <!-- Dashboard -->
+    <main class="dashboard">
+      <div class="container">
+        <!-- Tab: Dashboard Home -->
+        <div id="dashboardTab" class="tab-content active">
+          <!-- Header -->
+          <div class="dash-header">
+            <h1>🎓 <span data-lang-key="admin_dashboard">Admin Dashboard</span></h1>
+            <p class="greeting"><span data-lang-key="admin_greeting">Manage your class availability</span> – <strong id="userName"></strong></p>
+          </div>
+
+          <!-- Stat Cards -->
+          <div class="dash-grid dash-grid-3 mb-3">
+            <div class="stat-card">
+              <div class="stat-icon" style="background:var(--free-bg);color:var(--success)">👥</div>
+              <div class="stat-value" id="statTotal">0</div>
+              <div class="stat-label" data-lang-key="total_students">Total Students</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:rgba(116,185,255,0.15);color:var(--info)">📝</div>
+              <div class="stat-value" id="statResponded">0</div>
+              <div class="stat-label" data-lang-key="responded">Responded</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="background:rgba(253,203,110,0.2);color:#f39c12">📊</div>
+              <div class="stat-value" id="statRate">–</div>
+              <div class="stat-label" data-lang-key="availability_rate">Availability Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Week Picker -->
+        <div class="week-picker" id="globalWeekPicker">
+          <div class="week-nav">
+            <button class="icon-btn" id="prevWeek" data-tooltip="Previous Week">◀</button>
+            <button class="btn btn-secondary btn-sm" id="todayWeek">📅 Today</button>
+            <button class="icon-btn" id="nextWeek" data-tooltip="Next Week">▶</button>
+          </div>
+          <div class="week-label" id="weekLabel"></div>
+        </div>
+
+        <!-- Tab: Weekly View -->
+        <div id="weeklyTab" class="tab-content">
+          <div class="glass-card">
+            <div class="section-title">
+              <span class="icon" style="background:rgba(116,185,255,0.15);color:var(--info)">📅</span>
+              <span data-lang-key="weekly_view">Weekly View</span>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th data-lang-key="student_name">Student</th>
+                    <th data-lang-key="mon">Mon</th>
+                    <th data-lang-key="tue">Tue</th>
+                    <th data-lang-key="wed">Wed</th>
+                    <th data-lang-key="thu">Thu</th>
+                    <th data-lang-key="fri">Fri</th>
+                    <th data-lang-key="sat">Sat</th>
+                    <th data-lang-key="sun">Sun</th>
+                  </tr>
+                </thead>
+                <tbody id="weeklyTableBody">
+                  <tr><td colspan="8"><div class="spinner"></div></td></tr>
+                </tbody>
+                <tfoot>
+                  <tr id="weeklyStats"></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Best Day -->
+        <div id="bestDayTab" class="tab-content">
+          <div id="bestDayBanner" class="best-day-banner mb-3">
+            <span class="best-icon">🏆</span>
+            <div class="best-info">
+              <h3 data-lang-key="best_day_title">Best Day for Class</h3>
+              <p data-lang-key="loading">Loading...</p>
+            </div>
+          </div>
+          <div class="glass-card">
+            <div class="section-title">
+              <span class="icon" style="background:rgba(253,203,110,0.2);color:#f39c12">📊</span>
+              <span data-lang-key="details">Details</span>
+            </div>
+            <div id="bestDayBars"></div>
+          </div>
+        </div>
+
+        <!-- Tab: Yearly View -->
+        <div id="yearlyTab" class="tab-content">
+          <div class="glass-card">
+            <div class="section-title">
+              <span class="icon" style="background:var(--free-bg);color:var(--success)">🗓️</span>
+              <span data-lang-key="yearly_view">Yearly View</span>
+            </div>
+            <div class="year-picker">
+              <label data-lang-key="year">Year</label>
+              <select class="form-control" id="yearSelect" style="width:auto">
+                <script>
+                  const y = new Date().getFullYear();
+                  for (let i = y - 2; i <= y + 1; i++) {
+                    document.write(`<option value="${i}" ${i === y ? 'selected' : ''}>${i}</option>`);
+                  }
+                </script>
+              </select>
+            </div>
+            <div class="heatmap-wrap" id="heatmapContainer">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Students -->
+        <div id="studentsTab" class="tab-content">
+          <div class="glass-card">
+            <div class="section-title">
+              <span class="icon" style="background:var(--gradient-1);color:white">👥</span>
+              <span data-lang-key="students_list">Students</span>
+            </div>
+            <div id="studentList">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Admin Profile -->
+        <div id="adminProfileTab" class="tab-content">
+          <div class="dash-header">
+            <h1>🧑‍💼 <span data-lang-key="admin_profile">Admin Profile</span></h1>
+            <p class="greeting"><span data-lang-key="manage_admin_account">Manage your admin account and permissions</span></p>
+          </div>
+          
+          <div class="dash-grid dash-grid-2">
+            <!-- Change Password Card -->
+            <div class="glass-card">
+              <div class="section-title">
+                <span class="icon" style="background:rgba(225,112,85,0.15);color:var(--danger)">🔑</span>
+                <span data-lang-key="change_password">Change Password</span>
+              </div>
+              <form id="changePasswordForm">
+                <div class="form-group">
+                  <label data-lang-key="current_password">Current Password</label>
+                  <input type="password" class="form-control" name="old_password" required>
+                </div>
+                <div class="form-group">
+                  <label data-lang-key="new_password">New Password</label>
+                  <input type="password" class="form-control" name="new_password" required minlength="4">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  <span data-lang-key="update_password">Update Password</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Add Admin Card -->
+            <div class="glass-card">
+              <div class="section-title">
+                <span class="icon" style="background:rgba(0,184,148,0.15);color:var(--success)">👤+</span>
+                <span data-lang-key="add_new_admin">Add New Admin</span>
+              </div>
+              <form id="addAdminForm">
+                <div class="form-group">
+                  <label data-lang-key="full_name">Full Name</label>
+                  <input type="text" class="form-control" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label data-lang-key="email">Email</label>
+                  <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label data-lang-key="password">Password</label>
+                  <input type="password" class="form-control" name="password" required minlength="4">
+                </div>
+                <button type="submit" class="btn btn-success btn-block">
+                  <span data-lang-key="create_admin">Create Admin</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Settings -->
+        <div id="settingsTab" class="tab-content">
+          <div class="dash-header">
+            <h1>⚙️ <span data-lang-key="settings">Settings</span></h1>
+            <p class="greeting"><span data-lang-key="app_preferences">App preferences and options</span></p>
+          </div>
+          <div class="glass-card">
+            <div class="section-title">
+              <span class="icon" style="background:rgba(253,203,110,0.2);color:#f39c12">⚙️</span>
+              <span data-lang-key="preferences">Preferences</span>
+            </div>
+            <div class="profile-details" style="display:flex; flex-direction:column; gap:16px;">
+              <div class="form-group" style="margin:0; display:flex; justify-content:space-between; align-items:center;">
+                <label style="margin:0; font-size:1rem;" data-lang-key="theme">Theme</label>
+                <button class="btn btn-secondary theme-toggle" style="width: auto;">🌙 Theme</button>
+              </div>
+              <div class="form-group" style="margin:0; display:flex; justify-content:space-between; align-items:center;">
+                <label style="margin:0; font-size:1rem;" data-lang-key="language">Language</label>
+                <button class="btn btn-secondary lang-toggle" style="width: auto;">සිං Sinhala</button>
+              </div>
+              <!-- Biometric Login (only visible in mobile app) -->
+              <div class="form-group" id="biometricRow" style="margin:0; display:none; justify-content:space-between; align-items:center;">
+                <label style="margin:0; font-size:1rem;" data-lang-key="biometric_login">🔐 Biometric Login</label>
+                <button class="btn btn-secondary" id="biometricToggleBtn" style="width: auto;">Enable</button>
+              </div>
+              <hr style="border:0; border-top:1px solid var(--border); margin:8px 0;">
+              <button class="btn btn-primary btn-block logout-btn" style="background:var(--danger); border:none;" id="logoutBtn">
+                🚪 <span data-lang-key="logout">Logout</span>
+              </button>
+              
+              <!-- Developer Credit (Settings Only) -->
+              <div style="text-align: center; padding: 20px 0 0 0; color: var(--text-muted); font-size: 0.75rem; border-top: 1px solid var(--border); margin-top: 10px;">
+                Developed by <a href="https://www.linkedin.com/in/sithum-buddhika-764192311/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">SIthum Buddhika</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+    </div> <!-- .dashboard-layout -->
+  </div>
+
+  <script src="js/lang.js"></script>
+  <script src="js/app.js"></script>
+  <script>initAdminPage();</script>
+</body>
+</html>

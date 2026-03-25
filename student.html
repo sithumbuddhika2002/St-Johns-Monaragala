@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student Dashboard – Mark your weekly availability for tuition class." />
+  <title>St Johns Monaragala – Student Dashboard</title>
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
+</head>
+<body>
+  <!-- Animated BG -->
+  <div class="bg-animated">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <div class="page-wrapper">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <img src="images/logo.png" alt="Logo" class="app-logo" />
+          <span data-lang-key="app_name">St Johns Monaragala</span>
+        </div>
+        <!-- Controls moved to Settings tab -->
+      </div>
+    </nav>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-layout">
+      <!-- Sidebar / Bottom Nav -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-menu">
+          <button class="menu-item active" data-tab="availabilityTab">
+            <span class="icon">📅</span>
+            <span class="label" data-lang-key="availability">Availability</span>
+          </button>
+          <button class="menu-item" data-tab="profileTab">
+            <span class="icon">👤</span>
+            <span class="label" data-lang-key="profile">Profile</span>
+          </button>
+          <button class="menu-item" data-tab="settingsTab">
+            <span class="icon">⚙️</span>
+            <span class="label" data-lang-key="settings">Settings</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Dashboard -->
+      <main class="dashboard">
+        <div class="container">
+          <!-- Tab: Availability -->
+          <div id="availabilityTab" class="tab-content active">
+            <!-- Header -->
+            <div class="dash-header">
+              <h1>👋 <span data-lang-key="student_dashboard">My Availability</span></h1>
+              <p class="greeting"><span data-lang-key="student_greeting">Mark your free days for the week</span> – <strong id="userName"></strong></p>
+            </div>
+
+            <!-- Week Picker -->
+            <div class="week-picker">
+              <div class="week-nav">
+                <button class="icon-btn" id="prevWeek" data-tooltip="Previous Week">◀</button>
+                <button class="btn btn-secondary btn-sm" id="todayWeek">📅 Today</button>
+                <button class="icon-btn" id="nextWeek" data-tooltip="Next Week">▶</button>
+              </div>
+              <div class="week-label" id="weekLabel"></div>
+            </div>
+
+            <!-- Availability Grid -->
+            <div class="glass-card">
+              <div class="section-title">
+                <span class="icon" style="background:var(--free-bg);color:var(--success)">📋</span>
+                <span data-lang-key="click_to_toggle">Click to toggle</span>
+              </div>
+              <div id="availGrid" class="avail-grid"></div>
+              <button class="btn btn-primary btn-block btn-lg" id="saveBtn">
+                💾 <span data-lang-key="save">Save Availability</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab: Profile -->
+          <div id="profileTab" class="tab-content">
+            <div class="dash-header">
+              <h1>🧑‍🎓 <span data-lang-key="profile">User Profile</span></h1>
+              <p class="greeting"><span data-lang-key="manage_account">Manage your account details</span></p>
+            </div>
+            <div class="glass-card">
+              <div class="section-title">
+                <span class="icon" style="background:rgba(116,185,255,0.15);color:var(--info)">ℹ️</span>
+                <span data-lang-key="personal_info">Personal Information</span>
+              </div>
+              <div class="profile-details">
+                <div class="form-group">
+                  <label data-lang-key="full_name">Full Name</label>
+                  <div class="form-control" id="profileName" style="background:var(--bg-primary);cursor:not-allowed">Loading...</div>
+                </div>
+                <div class="form-group">
+                  <label data-lang-key="email">Email Address</label>
+                  <div class="form-control" id="profileEmail" style="background:var(--bg-primary);cursor:not-allowed">Loading...</div>
+                </div>
+                <div class="form-group">
+                  <label data-lang-key="account_type">Account Type</label>
+                  <div class="form-control" style="background:var(--bg-primary);cursor:not-allowed;text-transform:capitalize" id="profileRole">Student</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab: Settings -->
+          <div id="settingsTab" class="tab-content">
+            <div class="dash-header">
+              <h1>⚙️ <span data-lang-key="settings">Settings</span></h1>
+              <p class="greeting"><span data-lang-key="app_preferences">App preferences and options</span></p>
+            </div>
+            <div class="glass-card">
+              <div class="section-title">
+                <span class="icon" style="background:rgba(253,203,110,0.2);color:#f39c12">⚙️</span>
+                <span data-lang-key="preferences">Preferences</span>
+              </div>
+              <div class="profile-details" style="display:flex; flex-direction:column; gap:16px;">
+                <div class="form-group" style="margin:0; display:flex; justify-content:space-between; align-items:center;">
+                  <label style="margin:0; font-size:1rem;" data-lang-key="theme">Theme</label>
+                  <button class="btn btn-secondary theme-toggle" style="width: auto;">🌙 Theme</button>
+                </div>
+                <div class="form-group" style="margin:0; display:flex; justify-content:space-between; align-items:center;">
+                  <label style="margin:0; font-size:1rem;" data-lang-key="language">Language</label>
+                  <button class="btn btn-secondary lang-toggle" style="width: auto;">සිං Sinhala</button>
+                </div>
+                <!-- Biometric Login (only visible in mobile app) -->
+                <div class="form-group" id="biometricRow" style="margin:0; display:none; justify-content:space-between; align-items:center;">
+                  <label style="margin:0; font-size:1rem;" data-lang-key="biometric_login">🔐 Biometric Login</label>
+                  <button class="btn btn-secondary" id="biometricToggleBtn" style="width: auto;">Enable</button>
+                </div>
+                <hr style="border:0; border-top:1px solid var(--border); margin:8px 0;">
+                <button class="btn btn-primary btn-block logout-btn" style="background:var(--danger); border:none;" id="logoutBtn">
+                  🚪 <span data-lang-key="logout">Logout</span>
+                </button>
+                
+                <!-- Developer Credit (Settings Only) -->
+                <div style="text-align: center; padding: 20px 0 0 0; color: var(--text-muted); font-size: 0.75rem; border-top: 1px solid var(--border); margin-top: 10px;">
+                  Developed by <a href="https://www.linkedin.com/in/sithum-buddhika-764192311/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">SIthum Buddhika</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div> <!-- .dashboard-layout -->
+  </div>
+
+  <script src="js/lang.js"></script>
+  <script src="js/app.js"></script>
+  <script>initStudentPage();</script>
+</body>
+</html>

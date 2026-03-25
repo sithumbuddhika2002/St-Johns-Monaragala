@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="St Johns Monaragala – Mark your availability and find the best day for class." />
+  <title>St John – Monaragala</title>
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <!-- Auth Controls -->
+  <div class="auth-controls">
+    <button class="icon-btn theme-toggle" data-tooltip="Dark Mode">🌙</button>
+    <button class="icon-btn lang-toggle" data-tooltip="Language">සිං</button>
+  </div>
+
+  <!-- Auth Split Layout -->
+  <div class="auth-split-layout">
+    <!-- Left Image Section -->
+    <div class="auth-image">
+      <div class="auth-image-overlay">
+        <div class="auth-branding">
+          <!--<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width="80" height="80">-->
+            <!--<text y='.9em' font-size='90'>📚</text>-->
+          <!--</svg>-->
+          <h2>The Service of Mankind</h2>
+          <p>Monaragala District</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Content Section -->
+    <div class="auth-content">
+      <!-- Animated BG orbs scoped to content -->
+      <div class="bg-animated">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+      </div>
+
+      <!-- Auth Card -->
+      <div class="auth-page">
+        <div class="glass-card auth-card">
+          <div style="text-align: center; margin-bottom: 12px;">
+            <!-- <img src="images/logo.png" alt="Logo" style="height: 60px; width: auto; object-fit: contain;" /> -->
+          </div>
+          <h1 data-lang-key="app_name">St Johns Monaragala</h1>
+          <p class="subtitle" id="authSubtitle" data-lang-key="login_subtitle">Welcome back! Sign in to continue.</p>
+
+          <!-- Google Auth Container -->
+          <div class="google-auth-container" style="text-align: center; margin-bottom: 20px;">
+            <div id="g_id_onload"
+                 data-client_id=""
+                 data-context="use"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleAuth"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="outline"
+                 data-text="continue_with"
+                 data-size="large"
+                 data-logo_alignment="left"
+                 style="display: inline-block;">
+            </div>
+          </div>
+          
+          <div class="auth-divider" style="display: flex; align-items: center; text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.9em;">
+            <div style="flex: 1; border-bottom: 1px solid rgba(136,146,176,0.3);"></div>
+            <span style="padding: 0 10px;" data-lang-key="or">or</span>
+            <div style="flex: 1; border-bottom: 1px solid rgba(136,146,176,0.3);"></div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="loginPane" data-lang-key="login">Login</button>
+            <button class="auth-tab" data-tab="registerPane" data-lang-key="register">Register</button>
+          </div>
+
+          <!-- Login Form -->
+          <div id="loginPane" class="auth-form active">
+            <form id="loginForm" autocomplete="on">
+              <div class="form-group">
+                <label data-lang-key="email">Email</label>
+                <input class="form-control" type="email" name="email" required data-lang-key="email" placeholder="Email" id="loginEmail" />
+              </div>
+              <div class="form-group">
+                <label data-lang-key="password">Password</label>
+                <input class="form-control" type="password" name="password" required data-lang-key="password" placeholder="Password" id="loginPassword" />
+              </div>
+              <button type="submit" class="btn btn-primary btn-block btn-lg" data-lang-key="login_btn">Sign In</button>
+            </form>
+            <p class="auth-footer"><span data-lang-key="no_account">Don't have an account?</span> <a href="#" onclick="document.querySelector('[data-tab=registerPane]').click()"><span data-lang-key="register">Register</span></a></p>
+          </div>
+
+          <!-- Register Form -->
+          <div id="registerPane" class="auth-form">
+            <form id="registerForm" autocomplete="on">
+              <div class="form-group">
+                <label data-lang-key="name">Full Name</label>
+                <input class="form-control" type="text" name="fullname" required data-lang-key="name" placeholder="Full Name" id="registerName" />
+              </div>
+              <div class="form-group">
+                <label data-lang-key="email">Email</label>
+                <input class="form-control" type="email" name="email" required data-lang-key="email" placeholder="Email" id="registerEmail" />
+              </div>
+              <div class="form-group">
+                <label data-lang-key="password">Password</label>
+                <input class="form-control" type="password" name="password" required minlength="4" data-lang-key="password" placeholder="Password" id="registerPassword" />
+              </div>
+              <button type="submit" class="btn btn-success btn-block btn-lg" data-lang-key="register_btn">Create Account</button>
+            </form>
+            <p class="auth-footer"><span data-lang-key="have_account">Already have an account?</span> <a href="#" onclick="document.querySelector('[data-tab=loginPane]').click()"><span data-lang-key="login">Login</span></a></p>
+          </div>
+
+          <!-- Developer Credit -->
+          <div style="text-align: center; margin-top: 20px; color: var(--text-muted); font-size: 0.75rem; padding-bottom: 10px;">
+            Developed by <a href="https://www.linkedin.com/in/sithum-buddhika-764192311/" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600;">SIthum Buddhika</a>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <script src="js/lang.js"></script>
+  <script src="js/app.js"></script>
+  <script>initAuthPage();</script>
+</body>
+</html>
