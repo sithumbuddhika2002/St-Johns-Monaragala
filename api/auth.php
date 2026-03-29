@@ -101,7 +101,7 @@ switch ($action) {
              jsonResponse(['error' => 'Google email not verified or missing'], 401);
         }
         
-        $clientId = '314943612727-55qo5j4n7lek00e1eu2m64cbjli9cf08.apps.googleusercontent.com';
+        $clientId = '";
         if (!isset($payload['aud']) || $payload['aud'] !== $clientId) {
              jsonResponse(['error' => 'Invalid Google Client ID (aud mismatch)'], 401);
         }
