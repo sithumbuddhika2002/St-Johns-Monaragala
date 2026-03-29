@@ -34,7 +34,7 @@ $callbackUrl = $protocol . "://" . $host . $path . "/google_callback_mobile.php"
         <!-- Google Auth Container - using POPUP mode to avoid hosting redirect issues -->
         <div style="display: flex; justify-content: center;">
             <div id="g_id_onload"
-                 data-client_id=""
+                 data-client_id="314943612727-55qo5j4n7lek00e1eu2m64cbjli9cf08.apps.googleusercontent.com"
                  data-context="signin"
                  data-ux_mode="popup"
                  data-callback="handleGoogleCredential"

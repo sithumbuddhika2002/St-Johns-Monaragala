@@ -4,7 +4,7 @@
 const LANG = {
   en: {
     // Auth
-    app_name: "St Johns Monaragala",
+    app_name: "St John Monaragala",
     login: "Login",
     register: "Register",
     email: "Email",
@@ -93,7 +93,7 @@ const LANG = {
 
   si: {
     // Auth
-    app_name: "St Johns Monaragala",
+    app_name: "St John Monaragala",
     login: "පිවිසෙන්න",
     register: "ලියාපදිංචිය",
     email: "ඊමේල්",

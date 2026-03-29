@@ -33,7 +33,7 @@ if (!isset($payload['email']) || !isset($payload['email_verified']) || $payload[
     exit;
 }
 
-$clientId = '';
+$clientId = '314943612727-55qo5j4n7lek00e1eu2m64cbjli9cf08.apps.googleusercontent.com';
 if (!isset($payload['aud']) || $payload['aud'] !== $clientId) {
     echo json_encode(['success' => false, 'error' => 'Invalid Google Client ID']);
     exit;
